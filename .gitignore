@@ -136,4 +136,5 @@ cython_debug/
 Thumbs.db
 
 # Project specific
-data/
+data/transactions_data.csv
+data/test_transactions_data.csv
