@@ -73,20 +73,14 @@ def build_customer_timeline(dal: DataFrameDAL) -> dict[str, list[tuple[int, int]
     dict[str, list[tuple[int, int]]]
         Mapping of customer IDs to sorted list of (step, index) tuples.
     """
-    df = dal.get_dataframe()
+    df = dal.get_dataframe()[["nameOrig", "step"]].copy()
+    df["_idx"] = df.index
+
     timeline: dict[str, list[tuple[int, int]]] = {}
-
-    for idx, row in df.iterrows():
-        customer_id = row["nameOrig"]
-        step = int(row["step"])
-
-        if customer_id not in timeline:
-            timeline[customer_id] = []
-        timeline[customer_id].append((step, int(idx)))  # type: ignore
-
-    # Sort each customer's timeline by step
-    for customer_id in timeline:
-        timeline[customer_id].sort(key=lambda x: x[0])
+    for customer_id, group in df.groupby("nameOrig", observed=True):
+        timeline[str(customer_id)] = sorted(
+            zip(group["step"].astype(int), group["_idx"].astype(int))
+        )
 
     return timeline
 

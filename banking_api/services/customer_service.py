@@ -3,8 +3,6 @@
 This module provides business logic for customer-related operations
 including profile retrieval and top customer rankings.
 """
-from typing import Any
-
 from fastapi import Request
 
 from banking_api.data.base import DataAccessLayer
@@ -25,7 +23,8 @@ def _get_dal(request: Request) -> DataAccessLayer:
     DataAccessLayer
         The data access layer instance.
     """
-    return request.app.state.dal
+    dal: DataAccessLayer = request.app.state.dal
+    return dal
 
 
 def get_customers(

@@ -36,9 +36,6 @@ source venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
-
-# Install development dependencies (for testing)
-pip install -r requirements-dev.txt
 ```
 
 ### Install as Package
@@ -257,6 +254,24 @@ banking-transactions-api/
                     │ DataFrameDAL│        │  Future DB  │        │  Future DB  │
                     │  (Pandas)   │        │  (Postgres) │        │   (Mongo)   │
                     └─────────────┘        └─────────────┘        └─────────────┘
+```
+
+## 🔍 Qualité du code
+
+### Linting avec flake8
+
+```powershell
+# Vérifier la conformité PEP8
+flake8 banking_api/
+
+
+```
+
+### Vérification des types avec mypy
+
+```powershell
+# Vérifier le typage
+mypy banking_api/
 ```
 
 ## Development

@@ -28,7 +28,8 @@ def _get_dal(request: Request) -> DataAccessLayer:
     DataAccessLayer
         The data access layer instance.
     """
-    return request.app.state.dal
+    dal: DataAccessLayer = request.app.state.dal
+    return dal
 
 
 def get_transactions(
@@ -65,7 +66,7 @@ def get_transactions(
         List of transactions and total count.
     """
     dal = _get_dal(request)
-    filters = {}
+    filters: dict[str, Any] = {}
 
     if type_filter:
         filters["type"] = type_filter
